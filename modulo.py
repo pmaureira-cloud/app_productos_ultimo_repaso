@@ -68,8 +68,6 @@ def buscar_codigo(codigo, producto):
             return True
             
 
-
-
 # stock_categoria
 def stock_categoria(categoria, producto, inventario):
     stock_total = 0 
