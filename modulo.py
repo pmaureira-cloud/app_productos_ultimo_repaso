@@ -60,8 +60,26 @@ def validar_vendidos(vendidos):
         return False
 
 
-# buscar_codigo
+# buscar_codigo   
+def buscar_codigo(codigo, producto):
+    for clave in producto.keys():
+        if codigo == clave:
+            print(f"Producto : {producto[clave][0]}")
+            return True
+            
+
+
+
 # stock_categoria
+def stock_categoria(categoria, producto, inventario):
+    stock_total = 0 
+    for clave in producto.keys():
+        if categoria.upper() == producto[clave][1].upper():
+            #sumamos su stock al acumulador
+            stock_total += inventario[clave][0]
+    print(f"El stock total es: {stock_total}")
+
+
 # buscar_precio
 # actualizar_precio
 # agregar_producto
@@ -69,18 +87,14 @@ def validar_vendidos(vendidos):
 # mostrar_producto
 os.system('cls')
 
+
+
 # print("Estas en el archivo modulos")
 ##FUNCIONES MENU
 #def stock_por_categoria()
-    #print("Agregando")
 #def buscar_por_precio()
-    
 #def actualizar_precio()
-    
 #def agregar_producto()
-    
 #def eliminar_producto()
-
 #def mostrar_productos()
-        
 #def salir()

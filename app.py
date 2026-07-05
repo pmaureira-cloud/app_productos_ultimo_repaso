@@ -8,6 +8,31 @@ import os
 # Validar,
 # Llamados
 
+#LISTAS DE PRUEBA 
+dic_productos = {
+    "P101": ["MORA", "FRUTAS", 1200, True],  #[nombre, categoria, precio, disponible]
+    "P102": ["FRESAS", "FRUTAS", 4800, True],
+    "P103": ["ARANDANOS", "FRUTAS", 3800, False],
+    "P104": ["TOMATE", "VERDURAS", 4300, True],
+    "P105": ["LECHUGA", "VERDURAS", 2800, True],
+    "P106": ["LIMONES", "VERDURAS", 3200, True],
+    "P107": ["ARROZ", "ABARROTES", 2800, True],
+    "P108": ["HARINA", "ABARROTES", 1800, False],
+    "P109": ["TALLARINES", "ABARROTES", 1800, False]
+}
+
+dic_inventario = {
+    "P101": [30, 12],  # [stock, vendidos]
+    "P102": [0, 11],
+    "P103": [49, 33],
+    "P104": [70, 3],
+    "P105": [32, 10],
+    "P106": [43, 9],
+    "P107": [53, 0],
+    "P108": [43, 29],
+    "P109": [43, 14]
+}
+        
 #-----CREANDO LOS DICCIONARIOS------
 dic_inventario = {}
 dic_productos = {}
@@ -145,28 +170,15 @@ while True:
             Vendidos : {vendidos}
             ===========================
             """)
-        
-        # producto = {  #CREAMOS EL OBJETO DEL DIC PRODUCTO
-        #     "codigo": codigo,
-        #     "nombre": nombre,
-        #     "categoria": categoria,
-        #     "precio": precio,
-        #     "disponible": disponible,
-        #     "stock": stock,
-        #     "vendidos": vendidos
-        # }
-        
-        # inventario = {  #CREAMOS EL OBJETO DEL DIC INVENTARIO
-        #     "codigo": codigo,
-        #     "stock": stock,
-        #     "vendidos": vendidos
-        #         }
-            
+
+        #GUARDANDO EN LISTAS
         lista_productos = [nombre, categoria, precio, disponible]
         lista_inventario = [stock, vendidos]
         
-        dic_productos[codigo] = lista_productos  #AGREGAMOS AL DIC DE PRODUCTO 
-        dic_inventario[codigo] = lista_inventario  #AGREGAMOS AL DIC DE INVENTARIO 
+
+        #AGREGANDO LISTAS A LOS DICCIONARIOS
+        dic_productos[codigo] = lista_productos  
+        dic_inventario[codigo] = lista_inventario 
         
         print("Producto Agregado con éxito")
         input("\nEnter para continuar...")
@@ -178,23 +190,23 @@ while True:
     #opcion 6 "mostrar productos"
     def mostrar_productos(dic_productos, dic_inventario):
         os.system('cls')
-        print("================================")
-        print("=======LISTA DE PRODUCTOS=======")
-        print("================================")        
+        print("========================================")
+        print("           LISTA DE PRODUCTOS           ")
+        print("========================================")        
         if len(dic_productos) == 0:
             print("El inventario está vacío. \nNo hay productos que mostrar.")
         else:
             # Recorremos el diccionario usando .items()
             for codigo, datos in dic_productos.items():
                 print(f"CÓDIGO ID  : {codigo}")
-                print("---------------------------------------")
+                print("----------------------------------------")
                 print(f"Nombre     : {datos[0]}")
                 print(f"Categoría  : {datos[1]}")
                 print(f"Precio     : ${datos[2]}")
                 print(f"Disponible : {datos[3]}")
                 print(f"Stock      : {dic_inventario[codigo][0]}")
                 print(f"Vendidos   : {dic_inventario[codigo][1]}")
-                print("=======================================")
+                print("----------------------------------------")
         input("\nPresione Enter para regresar al menú...")
         
     #========================================
