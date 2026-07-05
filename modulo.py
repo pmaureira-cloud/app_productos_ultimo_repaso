@@ -10,7 +10,7 @@ import os
 # mostrar_producto
 
 
-# os.system('cls')
+os.system('cls')
 # print("Estas en el archivo modulos")
 ##FUNCIONES MENU
 #def stock_por_categoria()
