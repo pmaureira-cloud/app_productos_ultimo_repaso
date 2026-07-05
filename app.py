@@ -1,5 +1,5 @@
+import modulo as me
 import os
-#import modulo as me
 
 #EN ESTE ARCHIVOS CREAREMOS :
 # Crear Diccionarios, 
@@ -12,66 +12,13 @@ import os
 dic_inventario = {}
 dic_productos = {}
 
-#-----FUNCIONES VALIDADORAS------
-def validar_codigo(codigo):
-    # No vacío
-    if len(codigo.strip()) == 0:
-        return False
-    # Sin espacios en blanco
-    if " " in codigo:
-        return False
-    # no existente previamente.
-    for clave in dic_productos.keys():
-        if codigo == clave:
-            return False
-    return True
-    
-def validar_nombre(nombre):
-    if len(nombre.strip()) > 0:
-        return True
-    else:
-        return False
-
-def validar_categoria(categoria):
-    if len(categoria.strip()) > 0:
-        return True
-    else:
-        return False
-    
-def validar_precio(precio):
-    if precio > 0:
-        return True
-    else:
-        return False
-    
-def validar_disponible(disponible):
-    if disponible == "S" or disponible == "N":
-        return True
-    else:
-        return False
-    
-def validar_stock(stock):
-    if stock >= 0:
-        return True
-    else:
-        return False
-    
-def validar_vendidos(vendidos):
-    if vendidos >= 0:
-        return True
-    else:
-        return False
-    
-while True:    
-    #MENU PRINCIPAL
-
+#MENU PRINCIPAL
+while True: 
     def leer_opcion():
         os.system('cls')
         while True:
             try:
                 opcion = int(input("""
-                
-
                 ========= MENU PRINCIPAL =========
                 1. STOCK POR CATEGORIA
                 2. BUSCAR POR RANGO DE PRECIO
@@ -112,7 +59,6 @@ while True:
                         os.system('cls')
                     case 6:
                         mostrar_productos(dic_productos, dic_inventario)
-                        
                         os.system('cls')
                     case 7:
                         #me.salir()
@@ -128,65 +74,62 @@ while True:
                 print("Ingresa un número entero")
                 input("\nPresione Enter para continuar...")
                 os.system('cls')
-    
     #========================================
 
-    #-----FUNCIONES SOLICITAR DATOS------
+    #--FUNCIONES SOLICITAR DATOS--
     #opcion 4 "agregar productos"
-            
     def agregar_producto():
         os.system('cls')
         print("AGREGA UN PRODUCTO:")
-        
-        #--solicita codigo
         os.system('cls')
+        #--CODIGO
         codigo = str(input("Ingresa código : ")).strip().upper()
-        while not validar_codigo(codigo):
+        while not me.validar_codigo(codigo, dic_productos):
             print("ERROR. Codigo no es válido")
             codigo = str(input("Ingresar código : ")).strip().upper()
             
-        #--solicita nombre producto
+        #--NOMBRE
         nombre = str(input("Ingresa Nombre : ")).strip().upper()
-        while not validar_nombre(nombre):
+        while not me.validar_nombre(nombre):
             nombre = str(input("Debes ingresar Nombre : ")).strip().upper()
                 
-        #--solicita categoria
+        #--CATEGORIA
         categoria = str(input("Ingresa Categoría : ")).strip().upper()
-        while not validar_categoria(categoria):
+        while not me.validar_categoria(categoria):
             categoria = str(input("Debes ingresar Categoría : ")).strip().upper()
         
-        #--solicita el Precio
+        #--PRECIO
         while True:
             try:
                 precio = int(input("Ingresa Precio $ "))
-                if validar_precio(precio):
+                if me.validar_precio(precio):
                     break
                 else:
                     print("ERROR. El precio debe ser un número mayor que 0")
             except ValueError:
                 print("ERROR. Debe ingresar un número entero")
                 
-        #--solicita stock
+        #--STOCK
         while True:
             try:
                 stock = int(input("Ingresa stock: "))
-                if validar_stock(stock):
+                if me.validar_stock(stock):
                     break
             except ValueError:
                 print("ERROR. Debe ingresar un número entero")
         
-        #--solicita vendidos
+        #--VENDIDOS
         while True:
                     try:
                         vendidos = int(input("Ingresa vendidos: "))
-                        if validar_vendidos(vendidos):
+                        if me.validar_vendidos(vendidos):
                             break
                     except ValueError:
                         print("ERROR. Debe ingresar un número entero")
                         
-        #--solicita disponible
+        #--DISPONIBLE
         disponible = str(input("¿Está disponible para la venta? (S/N): ")).strip().upper()
-        while not validar_disponible(disponible):
+        while not me.validar_disponible(disponible):
             disponible = str(input("¿Disponible para la venta? (S/N): ")).strip().upper()
         #transformamos a True o False real para el diccionario:
         disponible = True if disponible == "S" else False
@@ -203,37 +146,33 @@ while True:
             ===========================
             """)
         
-        #CREAMOS EL OBJETO DEL DIC PRODUCTO
-        producto = {
-            "codigo": codigo,
-            "nombre": nombre,
-            "categoria": categoria,
-            "precio": precio,
-            "disponible": disponible,
-            "stock": stock,
-            "vendidos": vendidos
-        }
+        # producto = {  #CREAMOS EL OBJETO DEL DIC PRODUCTO
+        #     "codigo": codigo,
+        #     "nombre": nombre,
+        #     "categoria": categoria,
+        #     "precio": precio,
+        #     "disponible": disponible,
+        #     "stock": stock,
+        #     "vendidos": vendidos
+        # }
         
-        #CREAMOS EL OBJETO DEL DIC INVENTARIO
-        inventario = {
-            "codigo": codigo,
-            "stock": stock,
-            "vendidos": vendidos
-                }
+        # inventario = {  #CREAMOS EL OBJETO DEL DIC INVENTARIO
+        #     "codigo": codigo,
+        #     "stock": stock,
+        #     "vendidos": vendidos
+        #         }
+            
+        lista_productos = [nombre, categoria, precio, disponible]
+        lista_inventario = [stock, vendidos]
         
-        #AGREGAMOS AL DIC DE PRODUCTO 
-        dic_productos[codigo] = producto
+        dic_productos[codigo] = lista_productos  #AGREGAMOS AL DIC DE PRODUCTO 
+        dic_inventario[codigo] = lista_inventario  #AGREGAMOS AL DIC DE INVENTARIO 
         
-        #AGREGAMOS AL DIC DE INVENTARIO 
-        dic_inventario[codigo] = inventario
-        
-        print("Producto Agregado")
+        print("Producto Agregado con éxito")
         input("\nEnter para continuar...")
     
     
-    
     #opcion 5 "eliminar productos"
-    
     
     
     #opcion 6 "mostrar productos"
@@ -249,18 +188,15 @@ while True:
             for codigo, datos in dic_productos.items():
                 print(f"CÓDIGO ID  : {codigo}")
                 print("---------------------------------------")
-                print(f"Nombre     : {datos['nombre']}")
-                print(f"Categoría  : {datos['categoria']}")
-                print(f"Precio     : ${datos['precio']}")
-                print(f"Disponible : {datos['disponible']}")
-                print(f"Stock      : {dic_inventario[codigo]['stock']}")
-                print(f"Vendidos   : {dic_inventario[codigo]['vendidos']}")
+                print(f"Nombre     : {datos[0]}")
+                print(f"Categoría  : {datos[1]}")
+                print(f"Precio     : ${datos[2]}")
+                print(f"Disponible : {datos[3]}")
+                print(f"Stock      : {dic_inventario[codigo][0]}")
+                print(f"Vendidos   : {dic_inventario[codigo][1]}")
                 print("=======================================")
         input("\nPresione Enter para regresar al menú...")
         
-    #-----FUNCIONES LLAMADOS -----
-
-
     #========================================
     #LLAMADO A LA FUNCION leer_opcion() DEL MENU PRINCIPAL 
     leer_opcion()
